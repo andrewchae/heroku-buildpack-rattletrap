@@ -1,16 +1,19 @@
 #!/usr/bin/env bash
 # bin/compile <build-dir> <cache-dir>
 
-echo "-----> Installing mRuby like a boss"
+echo "-----> Installing rattletrap like a boss"
+
+RATTLETRAP_VERSION="2.2.4"
+RATTLETRAP_DIST_URL="https://github.com/tfausak/rattletrap/releases/download/2.2.4/rattletrap-2.2.4-linux.gz"
 
 # change to the the BUILD_DIR ($1)
 cd $1
 
 # download the mruby binary (-O) silently (-s)
-curl https://s3.amazonaws.com/schneems-heroku/mruby.tgz -s -O
+curl -s -L -o rattletrap.gz $RATTLETRAP_DIST_URL
 
-# make a directory to untar (like unzip) the binary
-mkdir -p vendor/mruby_bin
+# make a directory to gunzip (like unzip) the binary
+mkdir -p /app/vendor/rattletrap
 
-# untar the binary to the directory we want
-tar -C vendor/mruby_bin -xvf mruby.tgz
+# gunzip the binary to the directory we want
+gunzip -c rattletrap.gz > /app/vendor/rattletrap/rattletrap
